@@ -1,0 +1,46 @@
+<!--
+  Generated template for the GoldPrice page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="danger">
+    <ion-title>Giá Vàng</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="refreshContent($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">>
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="g-wrapper-general">
+    <div class="header horizontal g-text">
+      <span>Thị trường</span>
+      <span>Mua vào</span>
+      <span>Bán ra</span>
+    </div>
+    <ion-list >
+      <ion-item *ngFor="let city of goldPriceData.ratelist.city">
+        <div *ngIf = "city.item['@attributes']" class="horizontal g-text g-bold">
+          <span>{{city['@attributes'].name}}</span>
+          <span>{{city.item['@attributes'].buy}}</span>
+          <span>{{city.item['@attributes'].sell}}</span>
+        </div>
+        <!---->
+        <div *ngIf = "city.item[0]" class="horizontal g-text g-bold">
+          <span>{{city['@attributes'].name}}</span>
+          <span>{{city.item[0]['@attributes'].buy}}</span>
+          <span>{{city.item[0]['@attributes'].sell}}</span>
+        </div>
+      </ion-item>
+    </ion-list>
+    <div class="footer horizontal g-small">
+      <span>Cập nhập lúc {{goldPriceData.ratelist['@attributes'].updated}}</span>
+    </div>
+  </div>
+
+</ion-content>

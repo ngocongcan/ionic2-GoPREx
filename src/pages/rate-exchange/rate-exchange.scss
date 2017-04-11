@@ -1,0 +1,15 @@
+page-rate-exchange {
+    .horizontal {
+        display: flex;
+        justify-content: space-around;
+    }
+    .header {
+        background-color: #000;
+        color: #fff;
+        height: 50px;
+        line-height: 50px;
+    }
+    .footer {
+        margin-bottom: 10px;
+    }
+}

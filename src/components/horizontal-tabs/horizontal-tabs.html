@@ -1,0 +1,5 @@
+<div class="wrap-list">
+    <ul class="tab-list">
+        <li *ngFor="let title of tabMenu.titles; let i = index" class="g-small" [ngClass]="{'active': tabMenu.activeIndex === i}" (click)="onTabClick(i)">{{title}}</li>
+    </ul>
+</div>
