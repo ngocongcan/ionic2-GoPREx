@@ -8,7 +8,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 import { HttpService } from './http-service';
 import { GOLD_PRICE_LIST } from './mock-data/gold-price.mock.ts';
 import { RATE_EXCHANGE_LIST } from './mock-data/rate-exchange.mock.ts';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState , FirebaseListObservable} from 'angularfire2';
 
 /*
   Generated class for the RestAPIService provider.
@@ -23,18 +23,16 @@ export class RestAPIService extends HttpService {
   private goldPriceData? : any;
   public rateExchangeList: FirebaseListObservable<any>;
   public goldPriceList: FirebaseListObservable<any>;
+  private deviceInfoList: FirebaseListObservable<any>;
+
 
   constructor(protected http: Http, protected config: AppConfig
-    , protected storage: Storage , private platform: Platform, private af : AngularFire) {
+    , protected storage: Storage , private af : AngularFire) {
       super(http, config, storage);
       console.log('Hello RestAPIService Provider');
       this.rateExchangeList = af.database.list('/rate-exchange');
       this.goldPriceList = af.database.list('/gold-price');
-      platform.ready().then(()=>{
-        this.auth();
-      }).catch((err) => {
-        console.log(err);
-      });
+      this.deviceInfoList = af.database.list('/device-info');
   }
 
   getGoldPriceData() : Observable<any> {
@@ -52,10 +50,10 @@ export class RestAPIService extends HttpService {
       }).map(this.handleGoldPriceResponse.bind(this));
     } 
 
-    return this.getData(`gold-price`)
+    return this.getData(`crawler/gold-price`)
     .map(this.handleGoldPriceResponse.bind(this))
     .catch((err) => {
-          console.log(err);
+          console.error(err);
           return Observable.throw(false);
         });
   }
@@ -75,13 +73,21 @@ export class RestAPIService extends HttpService {
       }).map(this.handleRateExchangeResponse.bind(this));
     } 
 
-    return this.getData(`exchange-rate`)
+    return this.getData(`crawler/exchange-rate`)
     .map(this.handleRateExchangeResponse.bind(this))
     .catch((err) => {
-          console.log(err);
+          console.error(err);
           return Observable.throw(false);
         });
   }
+
+  requestAllData(): Observable<any> {
+    return this.auth()
+    .flatMap(this.getGoldPriceData)
+    .flatMap(this.getRateExchangeData);
+  }
+
+   
   auth() : Observable<any> {
     console.log('auth');
     if(this.config.env == 'dev') {
@@ -90,6 +96,7 @@ export class RestAPIService extends HttpService {
         observer.complete();
       })
     }
+    // prod
     let authHeader = {
       'provider' : 'device',
       'project-code': this.config.projectCode,
@@ -98,10 +105,15 @@ export class RestAPIService extends HttpService {
     let body = {
       'device-info' : this.config.deviceInfo
     };
+        
+    console.log('auth header:', authHeader);
+    console.log('auth body:', body);
+
     return this.postData(`auth`, body, authHeader)
     .map(this.handleAuthResponse.bind(this))
+  //  .flatMap(this.loginFirebaseWithAuthToken.bind(this))
     .catch((err) => {
-          console.log(err);
+          console.error(err);
           return Observable.throw(false);
         });
 
@@ -109,13 +121,16 @@ export class RestAPIService extends HttpService {
 
   private handleAuthResponse(res) {
     console.log('handleAuthResponse :', res);
-    return res;
+    let accessToken = res.data.access_token;
+    this.storage.set('access-token', accessToken);
+    return accessToken;
   }
 
   private handleGoldPriceResponse(res) {
     console.log('handleGoldPriceResponse :', res);
     if(res.success) {
       this.goldPriceList.push(res.data);
+      this.goldPriceData = res.data
     }
     return res.data;
   }
@@ -124,9 +139,32 @@ export class RestAPIService extends HttpService {
     console.log('handleRateExchangeResponse :', res);
     if(res.success) {
       this.rateExchangeList.push(res.data);
+      this.rateExchangeData = res.data;
     }
-    
     return res.data;
+  }
+
+  private loginFirebaseWithAuthToken(token: string): Observable<any> {
+    return Observable.create((observer: Observer<any>) => {
+      this.af.auth.login(token, {
+        provider: AuthProviders.Custom,
+        method: AuthMethods.CustomToken
+      }).then((firebaseAuthState: FirebaseAuthState) => {
+        firebaseAuthState.auth.getToken().then(firebaseToken => {
+          this.storage.set('firebase-token', firebaseToken);
+          observer.next(firebaseAuthState.uid);
+          observer.complete();
+        }).catch(err => {
+          console.error('firebase get token error:', err);
+          observer.next(false);
+          observer.complete();
+        })
+      }).catch((err) => {
+        console.error('firebase login error: ', err);
+        observer.next(false);
+        observer.complete();
+      })
+    });
   }
 
 }

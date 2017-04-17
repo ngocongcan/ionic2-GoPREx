@@ -9,7 +9,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
   name: 'price',
 })
-export class Price implements PipeTransform {
+export class PricePipe implements PipeTransform {
   /**
    * Takes a value and makes it lowercase.
    */

@@ -18,12 +18,14 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="g-wrapper-general">
-    <div class="header horizontal g-text">
-      <span>Thị trường</span>
-      <span>Mua vào</span>
-      <span>Bán ra</span>
-    </div>
-    <ion-list >
+    <ion-item class="header">
+      <div class="horizontal g-text">
+        <span>Thị trường</span>
+        <span>Mua vào</span>
+        <span>Bán ra</span>
+      </div>
+    </ion-item>
+    <ion-list *ngIf="goldPriceData" >
       <ion-item *ngFor="let city of goldPriceData.ratelist.city">
         <div *ngIf = "city.item['@attributes']" class="horizontal g-text g-bold">
           <span>{{city['@attributes'].name}}</span>
@@ -38,7 +40,7 @@
         </div>
       </ion-item>
     </ion-list>
-    <div class="footer horizontal g-small">
+    <div *ngIf="goldPriceData"  class="footer g-small">
       <span>Cập nhập lúc {{goldPriceData.ratelist['@attributes'].updated}}</span>
     </div>
   </div>

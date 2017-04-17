@@ -1,7 +1,11 @@
 page-rate-exchange {
     .horizontal {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
+        text-align: center;
+        span {
+            width: 33vw;
+        }
     }
     .header {
         background-color: #000;
@@ -11,5 +15,11 @@ page-rate-exchange {
     }
     .footer {
         margin-bottom: 10px;
+        display: flex;
+        justify-content: space-around;
     }
+}
+
+.item-md ion-avatar ion-img, .item-md ion-avatar img {
+    border-radius: 0%;
 }

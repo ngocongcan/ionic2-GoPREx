@@ -17,6 +17,8 @@ export class ConnectivityService {
             if (this.isDevice) {
                 this.subscribeNetworkStatus();
             }
+        }).catch((err) => {
+            console.error(err);
         });
     }
 

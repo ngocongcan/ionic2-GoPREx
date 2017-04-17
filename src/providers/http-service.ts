@@ -31,10 +31,14 @@ export class HttpService {
   }
 
   protected postData(path: string, body?: any, headersPairs?: any): Observable<any> {
+    console.log("post Data path", path);
     return this.getToken()
       .flatMap((token) => this.getHeaders(token, headersPairs))
       .flatMap((options) => this.http.post(`${this.config.apiUrl}/${path}`, body, options))
-      .map((res: Response) => res.json())
+      .map((res: Response) =>{
+        console.log('post Data res : ',res);
+        return res.json()
+      })
       .catch((err) => {
         console.error(`Post api error`);
         return Observable.throw(err);
@@ -56,6 +60,7 @@ export class HttpService {
     return Observable.create((observer: Observer<string>) => {
       this.storage.get('access-token')
         .then((token: string) => {
+          console.log("getToken :", token);
           if (token) {
             observer.next(token);
             observer.complete();
@@ -74,9 +79,6 @@ export class HttpService {
       const headers = new Headers();
       headers.append('api-key', this.config.apiKey);
       if (token) {
-        headers.append('access-token', token);
-      } else {
-        token = "740802edc9f484c1d7728a94a2b7a49e2a83201b61dd936fb569b95f7f8a4e3c";
         headers.append('access-token', token);
       }
       headers.append('Content-Type', 'application/json');

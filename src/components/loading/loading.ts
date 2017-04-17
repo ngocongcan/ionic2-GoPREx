@@ -16,26 +16,25 @@ export class LoadingComponent {
     }
 
     public showLoading(message? : string) {
-        // if (this.loading) {
-        //     this.loading.dismiss().catch((err) => {
-        //         console.log('showLoading err: ', err);
-        //     });
-        // }
-        // this.loading = this.loadingCtr.create({
-        //     content: message
-        // });
-        // this.loading.present().catch((err)=>{
-        //     console.log('showLoading err: ', err);
-        // });
+        
+        this.loading = this.loadingCtr.create({
+            content: message
+        });
+        this.loading.onDidDismiss(()=> {
+            this.loading = null;
+        })
+        this.loading.present().catch((err)=>{
+            console.log('showLoading err: ', err);
+        });
     }
 
     public hideLoading() {
         
-    //    if(this.loading) {
-    //         this.loading.dismiss().catch((err) => {
-    //             console.log('hideLoading err: ', err);
-    //         });
-    //     }
+       if(this.loading) {
+            this.loading.dismiss().catch((err) => {
+                console.log('hideLoading err: ', err);
+            });
+        }
     }
 
 }

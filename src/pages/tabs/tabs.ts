@@ -6,11 +6,9 @@ import { GoldPricePage } from '../gold-price/gold-price';
 import { RateExchangePage } from '../rate-exchange/rate-exchange';
 
 import { AppConfig } from '../../app/app.config';
-import { RestAPIService } from '../../providers/rest-api-service';
 
 @Component({
-  templateUrl: 'tabs.html',
-  providers : [RestAPIService]
+  templateUrl: 'tabs.html'
 })
 export class TabsPage {
 
@@ -19,7 +17,7 @@ export class TabsPage {
   tab3Root = ChartsPage;
   tab4Root = AboutPage;
   
-  constructor(private restService: RestAPIService) {
+  constructor() {
     console.log('Hello TabsPage');
   }
 }

@@ -18,6 +18,8 @@ import { ChartsPage } from '../pages/charts/charts';
 import { GoldPricePage } from '../pages/gold-price/gold-price';
 import { RateExchangePage } from '../pages/rate-exchange/rate-exchange';
 import { TabsPage } from '../pages/tabs/tabs';
+import { SplashPage } from '../pages/splash/splash';
+
 // Shared Components
 import { AlertComponent } from '../components/alert/alert';
 import { LoadingComponent } from '../components/loading/loading';
@@ -28,6 +30,8 @@ import { HorizontalTabsComponent } from '../components/horizontal-tabs/horizonta
 import { RestAPIService } from '../providers/rest-api-service';
 // Classes
 // Pipes
+import { PricePipe } from '../pipes/price';
+
 
 
 //---
@@ -39,7 +43,8 @@ const Pages = [
   GoldPricePage,
   ChartsPage,
   AboutPage,
-  TabsPage
+  TabsPage,
+  SplashPage
 ]
 
 const Components = [
@@ -51,7 +56,7 @@ const SharedComponents = [
   LoadingComponent
 ]
 const Pipes = [
-
+  PricePipe
 ]
 
 const Classes = [

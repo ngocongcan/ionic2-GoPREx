@@ -18,15 +18,19 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="g-wrapper-general">
-    <div class="header horizontal g-text">
-      <span>Ngoại tệ</span>
-      <span>Mua vào</span>
-      <span>Bán ra</span>
-    </div>
-    <ion-list >
+    <ion-item class="header">
+      <ion-avatar item-left>
+      </ion-avatar>
+      <div class="horizontal g-text">
+        <span>Ngoại tệ</span>
+        <span>Mua vào</span>
+        <span>Bán ra</span>
+      </div>
+    </ion-item>
+    <ion-list *ngIf="rateExchangeData">
       <ion-item detail-push *ngFor="let item of rateExchangeData.Exrate">
         <ion-avatar item-left>
-          <img src="../assets/flags-icon/usd.png">
+          <img src="assets/flags-icon/usd.png">
         </ion-avatar>
         <span class="g-text">{{item['@attributes'].CurrencyName}}</span>
         <div class="horizontal g-heading-2 g-bold">
@@ -37,7 +41,7 @@
         <!--<p>I've had a pretty messed up day. If we just...</p>-->
       </ion-item>
     </ion-list>
-    <div class="footer horizontal g-small">
+    <div  *ngIf="rateExchangeData" class="footer g-small">
       <span>Cập nhập lúc {{rateExchangeData.DateTime}}</span>
     </div>
   </div>

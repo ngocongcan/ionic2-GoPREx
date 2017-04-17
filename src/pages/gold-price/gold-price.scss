@@ -1,7 +1,11 @@
 page-gold-price {
     .horizontal {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
+        text-align: center;
+        span {
+            width: 33vw;
+        }
     }
     .header {
         background-color: #000;
@@ -11,6 +15,8 @@ page-gold-price {
     }
     .footer {
         margin-bottom: 10px;
+        display: flex;
+        justify-content: space-around;
     }
 }
 

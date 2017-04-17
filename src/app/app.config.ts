@@ -6,12 +6,12 @@ import * as moment from 'moment';
 @Injectable()
 export class AppConfig {
 
-    env: string = "dev";
+    env: string = "prod";
     projectCode : string = "FF-2014";
     appName: string = "GoPREx App";
     apiKey: string = "MWVlOWE3OTgtMzcwZi00ZGJkLTk5NjktYzA5Nzk1MDk5NGQ0";
-    apiUrl: string = "api";
-
+    apiUrl: string = "https://nlpapps.xyz/api/v1";
+    // apiUrl: string = "api";
     deviceId : string = "123456";
     deviceInfo : {};
 
@@ -31,7 +31,7 @@ export class AppConfig {
             } ;
             console.log("DeviceInfo :", this.deviceInfo);
         }).catch((err) => {
-        console.log(err);
+            console.log(err);
       });
     }
 }
