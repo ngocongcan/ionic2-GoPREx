@@ -5,7 +5,7 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { MomentModule } from 'angular2-moment';
 import { IonicStorageModule } from '@ionic/storage';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
-import { MyApp } from './app.component';
+import { GoPRExApp } from './app.component';
 import { HttpModule } from '@angular/http';
 
 // Classes
@@ -68,7 +68,7 @@ const Providers = [
 
 @NgModule({
   declarations: [
-    MyApp,
+    GoPRExApp,
     ...Pages,
     ...Components,
     ...SharedComponents,
@@ -76,7 +76,7 @@ const Providers = [
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(GoPRExApp),
     IonicStorageModule.forRoot({ name: '__goPRexDB', }),
     AngularFireModule.initializeApp(FirebaseConfig, {
       provider: AuthProviders.Custom,
@@ -88,7 +88,7 @@ const Providers = [
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    GoPRExApp,
     ...Pages
   ],
   providers: [

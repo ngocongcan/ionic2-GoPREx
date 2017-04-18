@@ -1,8 +1,17 @@
 splash-page {
 
     ion-content  {
-        background-image: url("../assets/splash.png");
-        background-color: #424850;
+        // background-image: url("../assets/splash.png");
+        // background-color: #424850;
     }
+    .background {
+        background-color: #424850;
+        height: 100%;
+        width: 100%;
+        img {
+            
+        }   
+    }
+    
 
 }

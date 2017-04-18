@@ -15,7 +15,7 @@ export class SplashPage {
 
   constructor(public navCtrl: NavController, private platform: Platform, private restService: RestAPIService, 
     private loading : LoadingComponent) {
-        this.requestAllData()
+        //this.requestAllData()
   }
 
   private requestAllData() {
