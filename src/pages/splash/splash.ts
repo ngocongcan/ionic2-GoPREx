@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
-import { Platform } from 'ionic-angular';
-import { RestAPIService } from '../../providers/rest-api-service';
-import { LoadingComponent } from '../../components/loading/loading';
-import { Observable, Observer } from 'rxjs/Rx';
 
 @Component({
   selector: 'splash-page',
@@ -13,11 +8,11 @@ import { Observable, Observer } from 'rxjs/Rx';
 })
 export class SplashPage {
 
-  constructor(public navCtrl: NavController, private platform: Platform, private restService: RestAPIService, 
-    private loading : LoadingComponent) {
+  constructor(public navCtrl: NavController) {
         //this.requestAllData()
   }
 
+/*
   private requestAllData() {
     console.log("SplashPage requestAllData")
      this.platform.ready().then(() => {
@@ -37,6 +32,7 @@ export class SplashPage {
           console.log(err);
       });
   }
+  */
 
 
 }

@@ -28,7 +28,7 @@ export class RateExchangePage {
 
   private getData(refresher?) {
     if(!refresher) {
-      // this.loading.showLoading("Loading...");
+      this.loading.showLoading("Loading...");
     }
     this.restService.getRateExchangeData().subscribe((res) => {
         console.log('RateExchangePage - getRateExchangeData res :', res);

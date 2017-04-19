@@ -16,7 +16,6 @@ export class LoadingComponent {
     }
 
     public showLoading(message? : string) {
-        
         this.loading = this.loadingCtr.create({
             content: message
         });

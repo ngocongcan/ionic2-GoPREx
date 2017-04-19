@@ -43,12 +43,12 @@ export class RestAPIService extends HttpService {
         observer.complete();
       });
     }
-    if(this.config.env == 'dev') {
-      return Observable.create((observer) => {
-        observer.next(GOLD_PRICE_LIST);
-        observer.complete();
-      }).map(this.handleGoldPriceResponse.bind(this));
-    } 
+    // if(this.config.env == 'dev') {
+    //   return Observable.create((observer) => {
+    //     observer.next(GOLD_PRICE_LIST);
+    //     observer.complete();
+    //   }).map(this.handleGoldPriceResponse.bind(this));
+    // } 
 
     return this.getData(`crawler/gold-price`)
     .map(this.handleGoldPriceResponse.bind(this))
@@ -66,12 +66,12 @@ export class RestAPIService extends HttpService {
         observer.complete();
       })
     }
-    if(this.config.env == 'dev') {
-      return Observable.create((observer) => {
-        observer.next(RATE_EXCHANGE_LIST);
-        observer.complete();
-      }).map(this.handleRateExchangeResponse.bind(this));
-    } 
+    // if(this.config.env == 'dev') {
+    //   return Observable.create((observer) => {
+    //     observer.next(RATE_EXCHANGE_LIST);
+    //     observer.complete();
+    //   }).map(this.handleRateExchangeResponse.bind(this));
+    // } 
 
     return this.getData(`crawler/exchange-rate`)
     .map(this.handleRateExchangeResponse.bind(this))
@@ -81,21 +81,21 @@ export class RestAPIService extends HttpService {
         });
   }
 
-  requestAllData(): Observable<any> {
-    return this.auth()
-    .flatMap(this.getGoldPriceData)
-    .flatMap(this.getRateExchangeData);
+  checkToken(): Observable<string> {
+    return this.getToken();
+   // .flatMap(this.getGoldPriceData)
+    //.flatMap(this.getRateExchangeData);
   }
 
    
   auth() : Observable<any> {
     console.log('auth');
-    if(this.config.env == 'dev') {
-      return Observable.create((observer) => {
-        observer.next();
-        observer.complete();
-      })
-    }
+    // if(this.config.env == 'dev') {
+    //   return Observable.create((observer) => {
+    //     observer.next();
+    //     observer.complete();
+    //   })
+    // }
     // prod
     let authHeader = {
       'provider' : 'device',

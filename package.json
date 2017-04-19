@@ -1,7 +1,7 @@
 {
-  "name": "ionic-hello-world",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "name": "GoPREx",
+  "author": "Can Ngo",
+  "homepage": "http://ngocongcan.xyz/",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -53,5 +53,5 @@
     "cordova-plugin-network-information"
   ],
   "cordovaPlatforms": [],
-  "description": "GoPREx: An Ionic project"
+  "description": "GoPREx: Gold price and Rate Exchange App"
 }

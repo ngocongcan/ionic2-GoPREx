@@ -6,9 +6,16 @@
 -->
 <ion-header>
 
-  <ion-navbar color="danger">
-    <ion-title>Giá Vàng</ion-title>
-  </ion-navbar>
+    <ion-item class="header">
+      <ion-avatar item-left>
+        <img src="assets/icons/appicon.png">
+      </ion-avatar>
+      <div class="horizontal g-text">
+        <span>Thị trường</span>
+        <span>Mua vào</span>
+        <span>Bán ra</span>
+      </div>
+    </ion-item>
 
 </ion-header>
 
@@ -18,15 +25,8 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="g-wrapper-general">
-    <ion-item class="header">
-      <div class="horizontal g-text">
-        <span>Thị trường</span>
-        <span>Mua vào</span>
-        <span>Bán ra</span>
-      </div>
-    </ion-item>
     <ion-list *ngIf="goldPriceData" >
-      <ion-item *ngFor="let city of goldPriceData.ratelist.city">
+      <ion-item class="content-item" *ngFor="let city of goldPriceData.ratelist.city">
         <div *ngIf = "city.item['@attributes']" class="horizontal g-text g-bold">
           <span>{{city['@attributes'].name}}</span>
           <span>{{city.item['@attributes'].buy}}</span>

@@ -23,24 +23,47 @@ export class GoPRExApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      this.requestAllData();
+      this.preloadLoadData();
     }).catch((err) =>{
       console.error(err);
     });
   }
 
-  private requestAllData() {
-    console.log("GoPRExApp requestAllData")
-    this.loading.showLoading("Loading...");
-    this.restService.requestAllData().subscribe((res) => {
-      console.log("res :", res);
-      this.loading.hideLoading();
-      this.navCtrl.setRoot(TabsPage);
-    }, err => {
-      console.error(err);
-      this.loading.hideLoading();
-      this.navCtrl.setRoot(TabsPage);
-    })
+  private preloadLoadData() {
+    console.log("GoPRExApp preloadLoadData")
+
+    this.restService.checkToken().subscribe((token) => {
+      if(token) {
+        this.rootPage = TabsPage;
+        this.auth(true);
+      } else {
+        this.auth(false);
+      }
+    }, error => {
+      this.auth(false);
+    });
+  }
+  private auth(inBackground?: boolean) {
+    if(! inBackground) {
+        this.loading.showLoading("Loading...");
+        this.restService.auth().subscribe((res) => {
+        console.log("res :", res);
+        this.loading.hideLoading();
+        this.rootPage = TabsPage;
+      }, err => {
+        console.error(err);
+        this.loading.hideLoading();
+        this.rootPage = TabsPage;
+      })
+    } else {
+        this.restService.auth().subscribe((res) => {
+        console.log("res :", res);
+      }, err => {
+        console.error(err);
+      })
+
+    }
+    
   }
 
 

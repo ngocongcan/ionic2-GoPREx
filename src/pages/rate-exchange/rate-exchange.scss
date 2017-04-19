@@ -6,17 +6,37 @@ page-rate-exchange {
         span {
             width: 33vw;
         }
+        span:nth-child(1) {
+            text-align: left;
+        }
+    }
+    .content-item {
+        background-color: $backgroundColor !important;
     }
     .header {
-        background-color: #000;
-        color: #fff;
-        height: 50px;
-        line-height: 50px;
+        @extend .g-bold;
+        background-color: $navBarColor;
+        color: $hoverColor;
+        height: 64px;
+        line-height: 64px;
     }
     .footer {
-        margin-bottom: 10px;
+        position: absolute;
         display: flex;
         justify-content: space-around;
+        background-color: #83b191;
+        color: #000;
+        height: 30px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        line-height: 30px;
+    }
+    .content {
+        padding-bottom: 30px;
+    }
+    .g-wrapper-general {
+        position: relative;
     }
 }
 

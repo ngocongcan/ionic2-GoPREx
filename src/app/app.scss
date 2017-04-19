@@ -55,6 +55,7 @@
     flex: 1;
     text-align: center;
     min-height: 100%;
+    background-color: $backgroundColor;
 }
 
 ion-tabs {
@@ -76,55 +77,67 @@ ion-tabs {
     width: 25px !important;
     min-width: 25px !important;
     height: 25px !important;
-    color: $hoverColor !important;
+    
+}
+.tabs-ios .tabbar {
+    background-color: $navBarColor !important;
+}
+.tabbar .show-tabbar {
+    background-color: $navBarColor !important;
 }
 
 .ion-ios-cash,
 .tabs-md .tab-button[aria-selected=true] .tab-button-icon.ion-md-cash {
-    content: url('../assets/icons/ic_tygia_hover.png');
+    content: url('../assets/icons/svg_ic_tygia_hover.svg');
     @include icon-standard;
 }
 
 .ion-ios-cash-outline,
 .ion-md-cash {
-    content: url('../assets/icons/ic_tygia_hover.png');
+    content: url('../assets/icons/svg_ic_tygia.svg');
     @include icon-standard;
 }
 
 .ion-ios-pulse,
 .tabs-md .tab-button[aria-selected=true] .tab-button-icon.ion-md-pulse {
-    content: url('../assets/icons/ic_giavang_hover.png');
+    content: url('../assets/icons/svg_ic_giavang_hover.svg');
     @include icon-standard;
 }
 
 .ion-ios-pulse-outline,
 .ion-md-pulse {
-    content: url('../assets/icons/ic_giavang_hover.png');
-    @include icon-standard;
+    content: url('../assets/icons/svg_ic_giavang.svg');
 }
 
 
 .ion-ios-more,
 .tabs-md .tab-button[aria-selected=true] .tab-button-icon.ion-md-more {
-    content: url('../assets/icons/ic_them_hover.png');
+    content: url('../assets/icons/svg_ic_them_hover.svg');
     @include icon-standard;
 }
 
 .ion-ios-more-outline,
 .ion-md-more {
-    content: url('../assets/icons/ic_them_hover.png');
+    content: url('../assets/icons/svg_ic_them.svg');
     @include icon-standard;
 }
 
 
 .ion-ios-stats,
 .tabs-md .tab-button[aria-selected=true] .tab-button-icon.ion-md-stats {
-    content: url('../assets/icons/ic_bieudo_hover.png');
+    content: url('../assets/icons/svg_ic_bieudo_hover.svg');
     @include icon-standard;
 }
 
 .ion-ios-stats-outline,
 .ion-md-stats {
-    content: url('../assets/icons/ic_bieudo_hover.png');
+    content: url('../assets/icons/svg_ic_bieudo.svg');
     @include icon-standard;
+}
+
+.tabs-ios .tab-button:hover:not(.disable-hover), .tabs-ios .tab-button[aria-selected=true] {
+    color: $hoverColor !important;
+}
+.tabs-ios .tab-button:hover:not(.disable-hover), .tabs-ios .tab-button[aria-selected=false] {
+    color: #fff !important;
 }

@@ -56,7 +56,7 @@ export class HttpService {
       });
   }
 
-  private getToken(): Observable<string> {
+  protected getToken(): Observable<string> {
     return Observable.create((observer: Observer<string>) => {
       this.storage.get('access-token')
         .then((token: string) => {

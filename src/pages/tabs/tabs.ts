@@ -5,8 +5,6 @@ import { ChartsPage } from '../charts/charts';
 import { GoldPricePage } from '../gold-price/gold-price';
 import { RateExchangePage } from '../rate-exchange/rate-exchange';
 
-import { AppConfig } from '../../app/app.config';
-
 @Component({
   templateUrl: 'tabs.html'
 })
