@@ -11,15 +11,15 @@ import { LoadingComponent } from '../../components/loading/loading';
  */
 @Component({
   selector: 'page-rate-exchange',
-  templateUrl: 'rate-exchange.html',
+  templateUrl: 'rate-exchange.html'
 })
 export class RateExchangePage {
 
-  rateExchangeData? : any;
+  rateExchangeData?: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private restService: RestAPIService, private loading:LoadingComponent) {
-      this.getData();
+    private restService: RestAPIService, public loading: LoadingComponent) {
+    this.getData();
   }
 
   ionViewDidLoad() {
@@ -27,16 +27,22 @@ export class RateExchangePage {
   }
 
   private getData(refresher?) {
-    if(!refresher) {
+    if (!refresher) {
       this.loading.showLoading("Loading...");
     }
     this.restService.getRateExchangeData().subscribe((res) => {
-        console.log('RateExchangePage - getRateExchangeData res :', res);
-        this.rateExchangeData = res;
-        refresher ? refresher.complete() : this.loading.hideLoading();
-      }, (err)=>{
-         refresher ? refresher.complete() : this.loading.hideLoading();
-      });
+      console.log('RateExchangePage - getRateExchangeData res :', res);
+      this.rateExchangeData = res;
+      if (refresher) {
+        refresher.complete();
+      }
+      this.loading.hideLoading();
+    }, (err) => {
+      if (refresher) {
+        refresher.complete();
+      }
+      this.loading.hideLoading();
+    });
   }
 
   public refreshContent(refresher) {

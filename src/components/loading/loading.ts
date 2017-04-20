@@ -3,35 +3,33 @@ import { Loading, LoadingController } from 'ionic-angular';
 
 
 @Component({
-  selector: 'loading',
-  templateUrl: 'loading.html'
+    selector: 'loading',
+    templateUrl: 'loading.html'
 })
 
 export class LoadingComponent {
 
-    loading : Loading;
+    loading: Loading;
 
     constructor(private loadingCtr: LoadingController) {
         console.log('Hello Loading Component');
     }
 
-    public showLoading(message? : string) {
+    public showLoading(message?: string) {
+        console.log("showLoading");
+        this.hideLoading();
         this.loading = this.loadingCtr.create({
             content: message
         });
-        this.loading.onDidDismiss(()=> {
-            this.loading = null;
-        })
-        this.loading.present().catch((err)=>{
-            console.log('showLoading err: ', err);
-        });
+        this.loading.present();
     }
 
     public hideLoading() {
-        
-       if(this.loading) {
-            this.loading.dismiss().catch((err) => {
-                console.log('hideLoading err: ', err);
+        console.log("hideLoading");
+        if (this.loading) {
+            this.loading.dismiss()
+                .catch((err) => {
+                    console.error(err);
             });
         }
     }

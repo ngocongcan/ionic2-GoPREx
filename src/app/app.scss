@@ -107,6 +107,7 @@ ion-tabs {
 .ion-ios-pulse-outline,
 .ion-md-pulse {
     content: url('../assets/icons/svg_ic_giavang.svg');
+    @include icon-standard;
 }
 
 

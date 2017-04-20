@@ -14,17 +14,17 @@ import { TabsPage } from '../pages/tabs/tabs';
 export class GoPRExApp {
 
   @ViewChild('navCtrl') navCtrl: NavController;
-  rootPage:any = SplashPage;
+  rootPage: any = SplashPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, appConfig: AppConfig,
-   private restService: RestAPIService, private loading: LoadingComponent) {
+    private restService: RestAPIService, private loading: LoadingComponent) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
       this.preloadLoadData();
-    }).catch((err) =>{
+    }).catch((err) => {
       console.error(err);
     });
   }
@@ -33,7 +33,7 @@ export class GoPRExApp {
     console.log("GoPRExApp preloadLoadData")
 
     this.restService.checkToken().subscribe((token) => {
-      if(token) {
+      if (token) {
         this.rootPage = TabsPage;
         this.auth(true);
       } else {
@@ -44,9 +44,9 @@ export class GoPRExApp {
     });
   }
   private auth(inBackground?: boolean) {
-    if(! inBackground) {
-        this.loading.showLoading("Loading...");
-        this.restService.auth().subscribe((res) => {
+    if (!inBackground) {
+      this.loading.showLoading("Authenticate...");
+      this.restService.auth().subscribe((res) => {
         console.log("res :", res);
         this.loading.hideLoading();
         this.rootPage = TabsPage;
@@ -56,14 +56,14 @@ export class GoPRExApp {
         this.rootPage = TabsPage;
       })
     } else {
-        this.restService.auth().subscribe((res) => {
+      this.restService.auth().subscribe((res) => {
         console.log("res :", res);
       }, err => {
         console.error(err);
       })
 
     }
-    
+
   }
 
 

@@ -10,15 +10,15 @@ import { LoadingComponent } from '../../components/loading/loading';
  */
 @Component({
   selector: 'page-gold-price',
-  templateUrl: 'gold-price.html',
+  templateUrl: 'gold-price.html'
 })
 export class GoldPricePage {
 
-  goldPriceData? : any;
+  goldPriceData?: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private restService: RestAPIService, private loading:LoadingComponent) {
-      this.getData();
+    private restService: RestAPIService, private loading: LoadingComponent) {
+    this.getData();
   }
 
   ionViewDidLoad() {
@@ -26,16 +26,22 @@ export class GoldPricePage {
   }
 
   private getData(refresher?) {
-    if(!refresher) {
+    if (!refresher) {
       this.loading.showLoading("Loading...");
     }
     this.restService.getGoldPriceData().subscribe((res) => {
-        console.log('GoldPricePage - getGoldPriceData res :', res);
-        this.goldPriceData = res;
-        refresher ? refresher.complete() : this.loading.hideLoading();
-      }, (err)=>{
-         refresher ? refresher.complete() : this.loading.hideLoading();
-      });
+      console.log('GoldPricePage - getGoldPriceData res :', res);
+      this.goldPriceData = res;
+      if (refresher) {
+        refresher.complete();
+      }
+      this.loading.hideLoading();
+    }, (err) => {
+      if (refresher) {
+        refresher.complete();
+      }
+      this.loading.hideLoading();
+    });
   }
 
   public refreshContent(refresher) {

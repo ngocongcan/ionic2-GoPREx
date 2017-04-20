@@ -32,10 +32,9 @@ export class ChartsPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChartsPage')
     let goldLables = [];
-    this.restService.goldPriceList.forEach((element : GoldPrice) => {
-          console.log(element);
-          // goldLables.push(element.ratelist['@attributes'].updated);
-      });
+    // this.restService.goldPriceList.forEach((element : GoldPrice) => {
+    //       console.log(element);
+    //   });
       console.log('ionViewDidLoad goldLables : ', goldLables);
       this.barChart = new Chart(this.barCanvas.nativeElement, {
           type: 'bar',
