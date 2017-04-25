@@ -31,6 +31,10 @@ export class ChartsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChartsPage')
+
+    this.restService.getAll().then((res)=> {
+        console.log("getAll : ", res);
+    })
     let goldLables = [];
     // this.restService.goldPriceList.forEach((element : GoldPrice) => {
     //       console.log(element);

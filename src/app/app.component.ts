@@ -24,7 +24,6 @@ export class GoPRExApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      this.sqliteService.createTables();
       this.preloadLoadData();
     }).catch((err) => {
       console.error(err);
