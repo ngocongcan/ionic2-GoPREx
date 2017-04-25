@@ -17,9 +17,9 @@ export class LoadingComponent {
 
     public showLoading(message?: string) {
         console.log("showLoading");
-        this.hideLoading();
         this.loading = this.loadingCtr.create({
-            content: message
+            content: message,
+            dismissOnPageChange: true
         });
         this.loading.present();
     }

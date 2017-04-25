@@ -17,7 +17,7 @@ export class AppConfig {
     constructor(private platform : Platform) {
         console.log('init AppConfig');
         platform.ready().then(() => {
-            this.deviceId = Device.uuid;
+            // this.deviceId = Device.uuid;
             this.deviceInfo = {
                 'uuid' : Device.uuid,
                 'cordova' : Device.cordova,

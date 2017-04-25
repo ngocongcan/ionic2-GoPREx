@@ -34,7 +34,7 @@ export class GoPRExApp {
 
     this.restService.checkToken().subscribe((token) => {
       if (token) {
-        this.rootPage = TabsPage;
+        this.navCtrl.setRoot(TabsPage);
         this.auth(true);
       } else {
         this.auth(false);
@@ -49,11 +49,12 @@ export class GoPRExApp {
       this.restService.auth().subscribe((res) => {
         console.log("res :", res);
         this.loading.hideLoading();
-        this.rootPage = TabsPage;
+        this.navCtrl.setRoot(TabsPage);
+
       }, err => {
         console.error(err);
         this.loading.hideLoading();
-        this.rootPage = TabsPage;
+        this.navCtrl.setRoot(TabsPage);
       })
     } else {
       this.restService.auth().subscribe((res) => {
