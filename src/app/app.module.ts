@@ -7,6 +7,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { GoPRExApp } from './app.component';
 import { HttpModule } from '@angular/http';
+import { SQLite } from '@ionic-native/sqlite';
 
 // Classes
 import { AppConfig } from './app.config';
@@ -28,6 +29,8 @@ import { ConnectionInstablePopupPage } from '../components/connection-instable-p
 import { HorizontalTabsComponent } from '../components/horizontal-tabs/horizontal-tabs';
 // Providers
 import { RestAPIService } from '../providers/rest-api-service';
+import { SqliteService } from '../providers/sqlite-service';
+
 // Classes
 // Pipes
 import { PricePipe } from '../pipes/price';
@@ -63,7 +66,8 @@ const Classes = [
   AppConfig
 ]
 const Providers = [
-  RestAPIService
+  RestAPIService,
+  SqliteService
 ]
 
 @NgModule({
@@ -94,6 +98,7 @@ const Providers = [
   providers: [
     StatusBar,
     SplashScreen,
+    SQLite,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ...Providers, ...Classes, ...SharedComponents
   ]

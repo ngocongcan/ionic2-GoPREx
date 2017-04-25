@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { RestAPIService } from '../../providers/rest-api-service';
 import { LoadingComponent } from '../../components/loading/loading';
+import { SqliteService } from '../../providers/sqlite-service';
 
 /**
  * Generated class for the RateExchange page.
@@ -18,7 +19,7 @@ export class RateExchangePage {
   rateExchangeData?: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private restService: RestAPIService, public loading: LoadingComponent) {
+    private restService: RestAPIService, public loading: LoadingComponent, private sqliteService: SqliteService) {
     this.getData();
   }
 
@@ -32,6 +33,7 @@ export class RateExchangePage {
     }
     this.restService.getRateExchangeData().subscribe((res) => {
       console.log('RateExchangePage - getRateExchangeData res :', res);
+      this.sqliteService.insertRateExchange(res);
       this.rateExchangeData = res;
       if (refresher) {
         refresher.complete();
