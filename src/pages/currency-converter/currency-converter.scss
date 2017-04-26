@@ -1,0 +1,74 @@
+page-currency-converter {
+
+    .header {
+        @extend .g-bold;
+        background-color: $navBarColor; 
+        color: $hoverColor;
+        height: 64px;
+        line-height: 64px;
+        span {
+            padding-top:20px;
+        }
+    }
+
+    ion-content {
+        background-color: $backgroundColor;
+    }
+
+    .item-inner {
+        margin-left:0px !important; 
+    }
+
+     .horizontal {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        text-align: center;
+        p {
+            width: 100vw;
+        }
+    }
+    .pannel {
+        background-color: $navBarColor !important;
+        margin: 16px;
+        border: 2px solid;
+        border-radius: 10px;
+    }
+    .input-area {
+        height: 80px;
+        img {
+            height: 40px;
+            width: 40px;
+            padding:5px; 
+        }
+        .currency-name {
+            padding-left: 10px !important;
+            height: 30px;
+            line-height: 30px;
+            text-align: left;
+            color: #fff;
+            width: 100%;
+            margin-left:0px; 
+            padding-left:0px;
+        }
+        .item-horizontal {
+            margin-left: 10px;
+            margin-right: 10px;
+            display: flex;
+            justify-content: space-between;
+            
+            input {
+                width: 75vw;
+                border: 2px solid;
+                border-radius: 10px;
+                text-align: right;
+                padding-right: 10px;
+            }
+        }
+    }
+
+     .converter-value {
+        color: #f53d3d;
+    }
+
+}

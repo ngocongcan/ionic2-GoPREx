@@ -50,6 +50,9 @@ export class RestAPIService extends HttpService {
     return this.getData(`crawler/gold-price`)
       .map(this.handleGoldPriceResponse.bind(this))
       .flatMap(this.saveGoldData.bind(this))
+      .map((res)=>{
+        return this.goldPriceData;
+      })
       .catch((err) => {
         console.error(err);
         return Observable.throw(false);
@@ -67,6 +70,9 @@ export class RestAPIService extends HttpService {
     return this.getData(`crawler/exchange-rate`)
       .map(this.handleRateExchangeResponse.bind(this))
       .flatMap(this.saveRateData.bind(this))
+      .map((res)=>{
+        return this.rateExchangeData;
+      })
       .catch((err) => {
         console.error(err);
         return Observable.throw(false);

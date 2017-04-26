@@ -8,9 +8,9 @@ export class ConnectivityService {
 
     public isOnline: boolean;
     private isDevice: boolean;
-    private model : Modal;
+    private model: Modal;
     constructor(public platform: Platform, public modalCtrl: ModalController,
-    private network:Network) {
+        private network: Network) {
         console.log("init ConnectivityService");
         this.platform.ready().then(() => {
             this.isDevice = this.platform.is('cordova');

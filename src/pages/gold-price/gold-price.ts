@@ -38,11 +38,11 @@ export class GoldPricePage {
   }
 
   private getData(refresher?) {
-    if (!refresher) {
+    if (!refresher || !this.goldPriceData) {
       this.loading.showLoading("Loading...");
     }
     this.restService.getGoldPriceData().subscribe((res) => {
-      console.log('GoldPricePage - getGoldPriceData res :', res);
+      // console.log('GoldPricePage - getGoldPriceData res :', res);
       this.goldPriceData = res;
       if (refresher) {
         refresher.complete();

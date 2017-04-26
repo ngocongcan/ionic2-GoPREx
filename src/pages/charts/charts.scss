@@ -1,11 +1,30 @@
 .ios, .md {
     page-charts {
         .scroll-content {
-            background-color: map-get($colors, light);
+            background-color: $backgroundColor;
         }
  
         ion-card-header {
             font-weight: bold;
+        }
+    }
+    .header {
+        @extend .g-bold;
+        background-color: $navBarColor; 
+        color: $hoverColor;
+        height: 64px;
+        line-height: 64px;
+        span {
+            padding-top:20px;
+        }
+    }
+
+     .horizontal {
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        span {
+            width: 100vw;
         }
     }
 }

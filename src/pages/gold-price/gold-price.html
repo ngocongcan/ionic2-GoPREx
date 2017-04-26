@@ -6,16 +6,16 @@
 -->
 <ion-header>
 
-    <ion-item class="header">
-      <ion-avatar item-left>
-        <img src="assets/icons/appicon.png">
-      </ion-avatar>
-      <div class="horizontal g-text">
-        <span>Thị trường</span>
-        <span>Mua vào</span>
-        <span>Bán ra</span>
-      </div>
-    </ion-item>
+  <ion-item class="header">
+    <ion-avatar item-left>
+      <img src="assets/icons/appicon.png">
+    </ion-avatar>
+    <div class="horizontal g-text">
+      <span>Thị trường</span>
+      <span>Mua vào</span>
+      <span>Bán ra</span>
+    </div>
+  </ion-item>
 
 </ion-header>
 
@@ -25,22 +25,22 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="g-wrapper-general">
-    <ion-list *ngIf="goldPriceData" >
+    <ion-list *ngIf="goldPriceData">
       <ion-item class="content-item" *ngFor="let city of goldPriceData.ratelist.city">
-        <div *ngIf = "city.item['@attributes']" class="horizontal g-text g-bold">
+        <div *ngIf="city.item['@attributes']" class="horizontal g-text g-bold">
           <span>{{city['@attributes'].name}}</span>
           <span>{{city.item['@attributes'].buy}}</span>
           <span>{{city.item['@attributes'].sell}}</span>
         </div>
         <!---->
-        <div *ngIf = "city.item[0]" class="horizontal g-text g-bold">
+        <div *ngIf="city.item[0]" class="horizontal g-text g-bold">
           <span>{{city['@attributes'].name}}</span>
           <span>{{city.item[0]['@attributes'].buy}}</span>
           <span>{{city.item[0]['@attributes'].sell}}</span>
         </div>
       </ion-item>
     </ion-list>
-    <div *ngIf="goldPriceData"  class="footer g-small">
+    <div *ngIf="goldPriceData" class="footer g-small">
       <span>Cập nhập lúc {{goldPriceData.ratelist['@attributes'].updated}}</span>
     </div>
   </div>

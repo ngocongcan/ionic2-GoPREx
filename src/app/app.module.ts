@@ -8,6 +8,7 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { GoPRExApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { SQLite } from '@ionic-native/sqlite';
+import { Network } from '@ionic-native/network';
 
 // Classes
 import { AppConfig } from './app.config';
@@ -20,7 +21,7 @@ import { GoldPricePage } from '../pages/gold-price/gold-price';
 import { RateExchangePage } from '../pages/rate-exchange/rate-exchange';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SplashPage } from '../pages/splash/splash';
-
+import { CurrencyConverterPage } from '../pages/currency-converter/currency-converter'
 // Shared Components
 import { AlertComponent } from '../components/alert/alert';
 import { LoadingComponent } from '../components/loading/loading';
@@ -42,16 +43,17 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 const Pages = [
+  ConnectionInstablePopupPage,
   RateExchangePage,
   GoldPricePage,
   ChartsPage,
   AboutPage,
   TabsPage,
-  SplashPage
+  SplashPage,
+  CurrencyConverterPage
 ]
 
 const Components = [
-  ConnectionInstablePopupPage,
   HorizontalTabsComponent
 ]
 const SharedComponents = [
@@ -99,6 +101,7 @@ const Providers = [
     StatusBar,
     SplashScreen,
     SQLite,
+    Network,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ...Providers, ...Classes, ...SharedComponents
   ]

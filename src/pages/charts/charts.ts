@@ -17,22 +17,25 @@ import * as _ from 'lodash';
 })
 export class ChartsPage {
 
-    tabMenu: string[];
+    // tabMenu: string[];
     @ViewChild('barCanvasEur') barCanvasEur;
     @ViewChild('barCanvasUsd') barCanvasUsd;
     @ViewChild('lineCanvas') lineCanvas;
 
-    usdMax : any;
-    usdMin : any;
-    eurMax : any;
-    eurMin : any;
+    usdMax: any;
+    usdMin: any;
+    eurMax: any;
+    eurMin: any;
+    goldMax: any;
+    goldMin: any;
     barChartEur: any;
     barChartUsd: any;
     lineChart: any;
 
+
     constructor(public navCtrl: NavController, public navParams: NavParams,
         private restService: RestAPIService) {
-        this.tabMenu = ["Giá USD", "Giá Euro", "Giá vàng"];
+        // this.tabMenu = ["Giá USD", "Giá Euro", "Giá vàng"];
     }
 
     ionViewDidLoad() {
@@ -62,18 +65,28 @@ export class ChartsPage {
 
     private handleGoldData(res) {
         let data = _.map(res, (e) => {
-            // let dateString = moment.unix(e._id).format("DD MMM YYYY");
-            // let sell = e['ratelist']['city'][0]['item'][0]['@attributes']['sell'];
-            // let buy = e['ratelist']['city'][0]['item'][0]['@attributes']['buy'];
-            let dateString = moment.unix(e._id).format("HH mm ss");
-            let sell = (Number(e['ratelist']['city'][0]['item'][0]['@attributes']['sell']) + Math.floor(Math.random() * 10) - 5);
-
+            let dateString = moment.unix(Number(e._id) + Math.floor(Math.random() * 864000)).format("DD MMM YYYY");
+            let sell = Number(e['ratelist']['city'][0]['item'][0]['@attributes']['sell']) * 1000 + Math.floor(Math.random() * 10000);
+            let buy = Number(e['ratelist']['city'][0]['item'][0]['@attributes']['buy']) * 1000 + Math.floor(Math.random() * 10000);
+            // let dateString = moment.unix(e._id).format("HH mm ss");
+            // let sell = (Number(e['ratelist']['city'][0]['item'][0]['@attributes']['sell']) + Math.floor(Math.random() * 10) - 5);
             return {
                 date: dateString,
                 sell: sell,
+                buy: buy
             }
         });
 
+        // Max min value
+
+        this.goldMax = _.maxBy(data, function (o) {
+            return o.sell;
+        })
+        this.goldMin = _.minBy(data, function (o) {
+            return o.sell;
+        })
+
+        // Chart last 7 days
         data = _.take(data, 7);
         this.lineChart = new Chart(this.lineCanvas.nativeElement, {
 
@@ -102,6 +115,28 @@ export class ChartsPage {
                         pointHitRadius: 10,
                         data: _.map(data, 'sell'),
                         spanGaps: false,
+                    },
+                    {
+                        label: "Mua vào",
+                        fill: true,
+                        lineTension: 0.1,
+                        backgroundColor: 'rgba(100, 159, 64, 0.4)',
+                        borderColor: 'rgba(100, 159, 64, 1)',
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: 'rgba(100, 159, 64, 1)',
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: _.map(data, 'buy'),
+                        spanGaps: false,
                     }
                 ]
             }
@@ -114,7 +149,7 @@ export class ChartsPage {
 
     private handleRateData(res) {
         let data = _.map(res, (e) => {
-            let dateString = moment.unix(e._id).format("DD MMM YYYY");
+            let dateString = moment.unix(Number(e._id) + Math.floor(Math.random() * 864000)).format("DD MMM YYYY");
             let euro = _.find(e.Exrate, function (o) {
                 return o['@attributes']['CurrencyCode'] == 'EUR'
             })
@@ -124,30 +159,30 @@ export class ChartsPage {
             return {
                 date: dateString,
                 euro: {
-                    buy: euro['@attributes']['Buy'],
-                    transfer: euro['@attributes']['Transfer'],
-                    sell: euro['@attributes']['Sell']
+                    buy: Number(euro['@attributes']['Buy']) + Math.floor(Math.random() * 1000),
+                    transfer: Number(euro['@attributes']['Transfer']) + Math.floor(Math.random() * 1000),
+                    sell: Number(euro['@attributes']['Sell']) + Math.floor(Math.random() * 100)
                 },
                 usd: {
-                    buy: usd['@attributes']['Buy'],
-                    transfer: usd['@attributes']['Transfer'],
-                    sell: usd['@attributes']['Sell']
+                    buy: Number(usd['@attributes']['Buy']) + Math.floor(Math.random() * 1000),
+                    transfer: Number(usd['@attributes']['Transfer']) + Math.floor(Math.random() * 1000),
+                    sell: Number(usd['@attributes']['Sell']) + Math.floor(Math.random() * 1000)
                 },
             }
         });
 
         // 
-        this.usdMax = _.maxBy(data, function(o){
+        this.usdMax = _.maxBy(data, function (o) {
             return o.usd.sell;
         })
-        this.usdMin = _.minBy(data, function(o){
+        this.usdMin = _.minBy(data, function (o) {
             return o.usd.sell;
         })
 
-        this.eurMax = _.maxBy(data, function(o){
+        this.eurMax = _.maxBy(data, function (o) {
             return o.euro.sell;
         })
-        this.eurMin = _.minBy(data, function(o){
+        this.eurMin = _.minBy(data, function (o) {
             return o.euro.sell;
         })
 
@@ -165,21 +200,21 @@ export class ChartsPage {
                     }),
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(100, 159, 64, 0.2)'
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
                     ],
                     borderColor: [
                         'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(100, 159, 64, 1)'
+                        'rgba(255,99,132,1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(255,99,132,1)',
                     ],
                     borderWidth: 1
                 },
@@ -189,22 +224,22 @@ export class ChartsPage {
                         return e.euro.buy
                     }),
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(100, 159, 64, 0.2)'
+                        'rgba(100, 159, 64, 0.2)',
+                        'rgba(100, 159, 64, 0.2)',
+                        'rgba(100, 159, 64, 0.2)',
+                        'rgba(100, 159, 64, 0.2)',
+                        'rgba(100, 159, 64, 0.2)',
+                        'rgba(100, 159, 64, 0.2)',
+                        'rgba(100, 159, 64, 0.2)',
                     ],
                     borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(100, 159, 64, 1)'
+                        'rgba(100, 159, 64, 1)',
+                        'rgba(100, 159, 64, 1)',
+                        'rgba(100, 159, 64, 1)',
+                        'rgba(100, 159, 64, 1)',
+                        'rgba(100, 159, 64, 1)',
+                        'rgba(100, 159, 64, 1)',
+                        'rgba(100, 159, 64, 1)',
                     ],
                     borderWidth: 1
                 }
@@ -234,21 +269,21 @@ export class ChartsPage {
                     }),
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(100, 159, 64, 0.2)'
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
                     ],
                     borderColor: [
                         'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(100, 159, 64, 1)'
+                        'rgba(255,99,132,1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(255,99,132,1)',
                     ],
                     borderWidth: 1
                 },
@@ -258,22 +293,22 @@ export class ChartsPage {
                         return e.usd.buy
                     }),
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(100, 159, 64, 0.2)'
+                        'rgba(100, 159, 64, 0.2)',
+                        'rgba(100, 159, 64, 0.2)',
+                        'rgba(100, 159, 64, 0.2)',
+                        'rgba(100, 159, 64, 0.2)',
+                        'rgba(100, 159, 64, 0.2)',
+                        'rgba(100, 159, 64, 0.2)',
+                        'rgba(100, 159, 64, 0.2)',
                     ],
                     borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(100, 159, 64, 1)'
+                        'rgba(100, 159, 64, 1)',
+                        'rgba(100, 159, 64, 1)',
+                        'rgba(100, 159, 64, 1)',
+                        'rgba(100, 159, 64, 1)',
+                        'rgba(100, 159, 64, 1)',
+                        'rgba(100, 159, 64, 1)',
+                        'rgba(100, 159, 64, 1)',
                     ],
                     borderWidth: 1
                 }

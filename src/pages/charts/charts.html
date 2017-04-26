@@ -5,11 +5,14 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar color="danger">
-    <ion-title>Biểu đồ</ion-title>
-  </ion-navbar>
-
+ <ion-item class="header">
+    <!--<ion-avatar item-left>
+      <img src="assets/icons/appicon.png">
+    </ion-avatar>-->
+    <div class="horizontal g-text">
+      <span>Biểu đồ</span>
+    </div>
+  </ion-item>
 </ion-header>
 
 <ion-content>
@@ -46,6 +49,10 @@
         Giá Vàng SJC Hồ Chí Minh
       </ion-card-header>
       <ion-card-content>
+        <div class="g-small" *ngIf="goldMax">
+          Cao nhất ({{goldMax.date}}) : {{goldMax.sell | currency :'VND'}} <br> Thấp nhất ({{goldMin.date}}) : {{goldMin.sell
+          | currency :'VND'}}
+        </div>
         <canvas #lineCanvas></canvas>
       </ion-card-content>
     </ion-card>

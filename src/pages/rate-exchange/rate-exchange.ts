@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { RestAPIService } from '../../providers/rest-api-service';
 import { LoadingComponent } from '../../components/loading/loading';
+import { CurrencyConverterPage } from '../currency-converter/currency-converter';
 
 /**
  * Generated class for the RateExchange page.
@@ -40,7 +41,7 @@ export class RateExchangePage {
 
 
   private getData(refresher?) {
-    if (!refresher) {
+    if (!refresher || !this.rateExchangeData) {
       this.loading.showLoading("Loading...");
     }
     this.restService.getRateExchangeData().subscribe((res) => {
@@ -49,7 +50,7 @@ export class RateExchangePage {
         refresher.complete();
       }
       this.loading.hideLoading();
-      this.getRateData();
+      this.rateExchangeData = res;
     }, (err) => {
       console.log("RateExchangePage getData error :", JSON.stringify(err));
       if (refresher) {
@@ -61,6 +62,13 @@ export class RateExchangePage {
 
   public refreshContent(refresher) {
     this.getData(refresher);
+  }
+
+  onClickItem(item) {
+    this.navCtrl.push(CurrencyConverterPage, {
+      selectedItem: item,
+      data : this.rateExchangeData
+    })
   }
 
 }

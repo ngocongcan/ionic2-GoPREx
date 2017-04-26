@@ -26,7 +26,7 @@
   <div class="g-wrapper-general">
     <div class="content">
         <ion-list *ngIf="rateExchangeData">
-          <ion-item class="content-item" detail-push *ngFor="let item of rateExchangeData.Exrate">
+          <ion-item class="content-item" detail-push *ngFor="let item of rateExchangeData.Exrate" (click)="onClickItem(item)">
             <ion-avatar item-left>
               <img src="assets/flags-icon/{{item['@attributes'].CurrencyCode|lowercase}}.png">
             </ion-avatar>
