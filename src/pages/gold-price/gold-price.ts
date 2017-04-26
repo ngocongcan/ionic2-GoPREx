@@ -19,10 +19,22 @@ export class GoldPricePage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private restService: RestAPIService, private loading: LoadingComponent) {
     this.getData();
+    this.getGoldData();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GoldPrice');
+  }
+
+  private getGoldData() {
+    this.restService.getAllGold().subscribe((res) => {
+      console.log("GoldPricePage getGoldData res :", JSON.stringify(res));
+      if (res && res.length) {
+        this.goldPriceData = res[0];
+      }
+    }, (err) => {
+      console.log("GoldPricePage getGoldData err :", JSON.stringify(err));
+    })
   }
 
   private getData(refresher?) {
@@ -36,6 +48,7 @@ export class GoldPricePage {
         refresher.complete();
       }
       this.loading.hideLoading();
+      this.getGoldData();
     }, (err) => {
       if (refresher) {
         refresher.complete();

@@ -7,6 +7,8 @@ import { Observable } from 'rxjs/Rx';
 import { HttpService } from './http-service';
 import * as PouchDB from 'pouchdb';
 import cordovaSqlitePlugin from 'pouchdb-adapter-cordova-sqlite';
+import * as moment from 'moment';
+import * as _ from 'lodash';
 /*
   Generated class for the RestAPIService provider.
 
@@ -19,8 +21,10 @@ export class RestAPIService extends HttpService {
   private rateExchangeData?: any;
   private goldPriceData?: any;
 
-  private _db;
-  private _birthdays;
+  private _gpdb;
+  private _gpdata;
+  private _redb;
+  private _redata;
 
   constructor(protected http: Http, protected config: AppConfig
     , protected storage: Storage) {
@@ -31,7 +35,8 @@ export class RestAPIService extends HttpService {
 
   initDB() {
     PouchDB.plugin(cordovaSqlitePlugin);
-    this._db = new PouchDB('_goprex.db', { adapter: 'cordova-sqlite' });
+    this._gpdb = new PouchDB('_gopr.db', { adapter: 'cordova-sqlite' });
+    this._redb = new PouchDB('_raex.db', { adapter: 'cordova-sqlite' });
   }
 
   getGoldPriceData(): Observable<any> {
@@ -39,11 +44,12 @@ export class RestAPIService extends HttpService {
     if (this.goldPriceData) {
       return Observable.create((observer) => {
         observer.next(this.goldPriceData);
-        // observer.complete();
+        observer.complete();
       });
     }
     return this.getData(`crawler/gold-price`)
       .map(this.handleGoldPriceResponse.bind(this))
+      .flatMap(this.saveGoldData.bind(this))
       .catch((err) => {
         console.error(err);
         return Observable.throw(false);
@@ -55,11 +61,12 @@ export class RestAPIService extends HttpService {
     if (this.rateExchangeData) {
       return Observable.create((observer) => {
         observer.next(this.rateExchangeData);
-        // observer.complete();
+        observer.complete();
       })
     }
     return this.getData(`crawler/exchange-rate`)
       .map(this.handleRateExchangeResponse.bind(this))
+      .flatMap(this.saveRateData.bind(this))
       .catch((err) => {
         console.error(err);
         return Observable.throw(false);
@@ -69,7 +76,6 @@ export class RestAPIService extends HttpService {
   checkToken(): Observable<string> {
     return this.getToken();
   }
-
 
   auth(): Observable<any> {
     console.log('auth');
@@ -94,60 +100,41 @@ export class RestAPIService extends HttpService {
 
   }
 
-  getAll(): Promise<any> {
-    if (!this._birthdays) {
-      return this._db.allDocs({ include_docs: true })
-        .then(docs => {
-
-          // Each row has a .doc object and we just want to send an 
-          // array of birthday objects back to the calling controller,
-          // so let's map the array to contain just the .doc objects.
-
-          this._birthdays = docs.rows.map(row => {
-            // Dates are not automatically converted from a string.
-            row.doc.Date = new Date(row.doc.Date);
-            return row.doc;
-          });
-
-          // Listen for changes on the database.
-          this._db.changes({ live: true, since: 'now', include_docs: true })
-            .on('change', this.onDatabaseChange);
-
-          return this._birthdays;
-        });
-    } else {
-      // Return cached data as a promise
-      return Promise.resolve(this._birthdays);
-    }
+  getAllRate(): Observable<any> {
+    return Observable.fromPromise(
+      this._redb.allDocs({
+        include_docs: true
+      })
+    ).map(this.handleRateData.bind(this))
   }
 
-  private onDatabaseChange = (change) => {
-    var index = this.findIndex(this._birthdays, change.id);
-    var birthday = this._birthdays[index];
-
-    if (change.deleted) {
-      if (birthday) {
-        this._birthdays.splice(index, 1); // delete
-      }
-    } else {
-      change.doc.Date = new Date(change.doc.Date);
-      if (birthday && birthday._id === change.id) {
-        this._birthdays[index] = change.doc; // update
-      } else {
-        this._birthdays.splice(index, 0, change.doc) // insert
-      }
-    }
+  getAllGold(): Observable<any> {
+    return Observable.fromPromise(
+      this._gpdb.allDocs({
+        include_docs: true
+      })
+    ).map(this.handleGoldData.bind(this))
   }
 
-  // Binary search, the array is by default sorted by _id.
-  private findIndex(array, id) {
-    var low = 0, high = array.length, mid;
-    while (low < high) {
-      mid = (low + high) >>> 1;
-      array[mid]._id < id ? low = mid + 1 : high = mid
-    }
-    return low;
+  private handleRateData(docs) {
+
+    this._redata = docs.rows.map(row => {
+      return row.doc;
+    })
+
+    return _.orderBy(this._redata, [function (o) { return Number(o._id) }], ['desc']);
   }
+
+
+  private handleGoldData(docs) {
+    this._gpdata = docs.rows.map(row => {
+      return row.doc;
+    })
+    return _.orderBy(this._gpdata, [function (o) { return Number(o._id) }], ['desc']);
+  }
+
+
+  // private
 
   private handleAuthResponse(res) {
     console.log('handleAuthResponse :', res);
@@ -161,7 +148,6 @@ export class RestAPIService extends HttpService {
     if (res.success) {
       this.goldPriceData = res.data
     }
-    this._db.post(res.data);
     return res.data;
   }
 
@@ -170,9 +156,44 @@ export class RestAPIService extends HttpService {
     if (res.success) {
       this.rateExchangeData = res.data;
     }
-    this._db.post(res.data);
     return res.data;
   }
 
+  // PouchDB
+
+  private saveRateData(data): Observable<any> {
+
+    let dateString = new Date(data.DateTime);
+    let dateFormat = "MM/DD/YYYY hh:mm:ss A"
+    // let unixTime = moment.utc(dateString, dateFormat).unix();
+    let unixTime = moment().unix();
+    console.log("saveRateData time : ", unixTime);
+    if (unixTime && dateString) {
+      data['_id'] = `${unixTime}`;
+      return Observable.fromPromise(
+        this._redb.put(data)
+      )
+    } else {
+      return Observable.of(false);
+    }
+
+  }
+
+  private saveGoldData(data): Observable<any> {
+
+    let dateString = data.ratelist['@attributes'].updated;
+    let dateFormat = "hh:mm:ss A DD/MM/YYYY"
+    // let unixTime = moment.utc(dateString, dateFormat).unix();
+    let unixTime = moment().unix();
+    console.log("saveGoldData time : ", unixTime);
+    if (unixTime && dateString) {
+      data['_id'] = `${unixTime}`;
+      return Observable.fromPromise(
+        this._gpdb.put(data)
+      )
+    } else {
+      return Observable.of(false);
+    }
+  }
 
 }

@@ -29,7 +29,7 @@ import { ConnectionInstablePopupPage } from '../components/connection-instable-p
 import { HorizontalTabsComponent } from '../components/horizontal-tabs/horizontal-tabs';
 // Providers
 import { RestAPIService } from '../providers/rest-api-service';
-import { SqliteService } from '../providers/sqlite-service';
+import { ConnectivityService } from '../providers/connectivity-service';
 
 // Classes
 // Pipes
@@ -67,7 +67,7 @@ const Classes = [
 ]
 const Providers = [
   RestAPIService,
-  SqliteService
+  ConnectivityService
 ]
 
 @NgModule({
@@ -99,8 +99,8 @@ const Providers = [
     StatusBar,
     SplashScreen,
     SQLite,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     ...Providers, ...Classes, ...SharedComponents
   ]
 })
-export class AppModule {}
+export class AppModule { }

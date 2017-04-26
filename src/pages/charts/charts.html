@@ -9,34 +9,41 @@
   <ion-navbar color="danger">
     <ion-title>Biểu đồ</ion-title>
   </ion-navbar>
-  
+
 </ion-header>
 
-<ion-content >
+<ion-content>
   <div class="g-wrapper-general">
     <!--<horizontal-tabs [tabMenu]="tabMenu" (tabClickEvent)="switchTab($event)">
     </horizontal-tabs>-->
     <ion-card>
       <ion-card-header>
-        Bar Chart
+        Giá USD
       </ion-card-header>
       <ion-card-content>
-        <canvas #barCanvas></canvas>
+        <div class="g-small" *ngIf="usdMax">
+          Cao nhất ({{usdMax.date}}) : {{usdMax.usd.sell | currency :'VND'}} <br> Thấp nhất ({{usdMin.date}}) : {{usdMin.usd.sell
+          | currency :'VND'}}
+        </div>
+        <canvas #barCanvasUsd></canvas>
       </ion-card-content>
     </ion-card>
- 
+
     <ion-card>
       <ion-card-header>
-        Doughnut Chart
+        Giá EUR
       </ion-card-header>
       <ion-card-content>
-        <canvas #doughnutCanvas></canvas>
+        <div class="g-small" *ngIf="eurMax">
+          Cao nhất ({{eurMax.date}}) : {{eurMax.euro.sell | currency :'VND'}} <br> Thấp nhất ({{eurMin.date}}) : {{eurMin.euro.sell
+          | currency :'VND'}}
+        </div>
+        <canvas #barCanvasEur></canvas>
       </ion-card-content>
     </ion-card>
- 
     <ion-card>
       <ion-card-header>
-        Line Chart
+        Giá Vàng SJC Hồ Chí Minh
       </ion-card-header>
       <ion-card-content>
         <canvas #lineCanvas></canvas>

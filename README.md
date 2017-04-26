@@ -1,6 +1,8 @@
 http://www.iconarchive.com/show/flag-icons-by-gosquared.10.html
 https://www.joshmorony.com/adding-responsive-charts-graphs-to-ionic-2-applications/
 https://gonehybrid.com/how-to-use-pouchdb-sqlite-for-local-storage-in-ionic-2/
+https://pouchdb.com/2014/06/17/12-pro-tips-for-better-code-with-pouchdb.html
+https://pouchdb.com/api.html
 
 Ahead of time compilation
 npm run ionic:build --aot

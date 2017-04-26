@@ -6,8 +6,8 @@ import { SplashPage } from '../pages/splash/splash';
 import { Platform, NavController } from 'ionic-angular';
 import { LoadingComponent } from '../components/loading/loading';
 import { RestAPIService } from '../providers/rest-api-service';
-import { SqliteService } from '../providers/sqlite-service';
 import { TabsPage } from '../pages/tabs/tabs';
+import { ConnectivityService } from '../providers/connectivity-service';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,7 +18,7 @@ export class GoPRExApp {
   rootPage: any = SplashPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, appConfig: AppConfig,
-    private restService: RestAPIService, private loading: LoadingComponent, private sqliteService: SqliteService) {
+    private restService: RestAPIService, private loading: LoadingComponent, private connectivity: ConnectivityService) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
