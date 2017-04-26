@@ -62,5 +62,5 @@
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
     <plugin name="cordova-plugin-device" spec="~1.1.4" />
     <icon src="resources/ios/icon/icon-small@3x.png" />
-    <plugin name="cordova-sqlite-storage" spec="~2.0.3" />
+    <plugin name="cordova-plugin-sqlite-2" spec="~1.0.4" />
 </widget>
