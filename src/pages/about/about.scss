@@ -1,15 +1,11 @@
 page-about {
 
-    .header {
-        @extend .g-bold;
-        background-color: $navBarColor;
-        color: $hoverColor;
-        height: 64px;
-        line-height: 64px;
-        text-align: center;
-        span {
-            padding-top: 20px;
-        }
+    .logo {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 12px;
+        left: 12px;
     }
 
     .horizontal {
@@ -21,6 +17,13 @@ page-about {
         }
         margin: 0px !important;
         padding: 0px !important;
+    }
+    .large-logo {
+        width: 60vw;
+        height: 60vw;
+        margin: 20vw;
+        border: 1px solid;
+        border-radius: 30px;
     }
 
 }

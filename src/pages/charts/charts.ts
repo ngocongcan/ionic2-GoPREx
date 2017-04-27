@@ -35,12 +35,6 @@ export class ChartsPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
         private restService: RestAPIService) {
-        // this.tabMenu = ["Giá USD", "Giá Euro", "Giá vàng"];
-    }
-
-    ionViewDidLoad() {
-        console.log('ionViewDidLoad ChartsPage')
-
         this.restService.getAllRate()
             .map(this.handleRateData.bind(this))
             .subscribe((res) => {
@@ -58,18 +52,15 @@ export class ChartsPage {
             })
     }
 
-
-    public switchTab(tabIndex): void {
-
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad ChartsPage')
     }
 
     private handleGoldData(res) {
         let data = _.map(res, (e) => {
-            let dateString = moment.unix(Number(e._id) + Math.floor(Math.random() * 864000)).format("DD MMM YYYY");
-            let sell = Number(e['ratelist']['city'][0]['item'][0]['@attributes']['sell']) * 1000 + Math.floor(Math.random() * 10000);
-            let buy = Number(e['ratelist']['city'][0]['item'][0]['@attributes']['buy']) * 1000 + Math.floor(Math.random() * 10000);
-            // let dateString = moment.unix(e._id).format("HH mm ss");
-            // let sell = (Number(e['ratelist']['city'][0]['item'][0]['@attributes']['sell']) + Math.floor(Math.random() * 10) - 5);
+            let dateString = moment.unix(Number(e._id)).format("DD MMM YYYY");
+            let sell = Number(e['ratelist']['city'][0]['item'][0]['@attributes']['sell']) * 1000;
+            let buy = Number(e['ratelist']['city'][0]['item'][0]['@attributes']['buy']) * 1000;
             return {
                 date: dateString,
                 sell: sell,
@@ -149,7 +140,7 @@ export class ChartsPage {
 
     private handleRateData(res) {
         let data = _.map(res, (e) => {
-            let dateString = moment.unix(Number(e._id) + Math.floor(Math.random() * 864000)).format("DD MMM YYYY");
+            let dateString = moment.unix(Number(e._id)).format("DD MMM YYYY");
             let euro = _.find(e.Exrate, function (o) {
                 return o['@attributes']['CurrencyCode'] == 'EUR'
             })
@@ -159,14 +150,14 @@ export class ChartsPage {
             return {
                 date: dateString,
                 euro: {
-                    buy: Number(euro['@attributes']['Buy']) + Math.floor(Math.random() * 1000),
-                    transfer: Number(euro['@attributes']['Transfer']) + Math.floor(Math.random() * 1000),
-                    sell: Number(euro['@attributes']['Sell']) + Math.floor(Math.random() * 100)
+                    buy: Number(euro['@attributes']['Buy']),
+                    transfer: Number(euro['@attributes']['Transfer']),
+                    sell: Number(euro['@attributes']['Sell'])
                 },
                 usd: {
-                    buy: Number(usd['@attributes']['Buy']) + Math.floor(Math.random() * 1000),
-                    transfer: Number(usd['@attributes']['Transfer']) + Math.floor(Math.random() * 1000),
-                    sell: Number(usd['@attributes']['Sell']) + Math.floor(Math.random() * 1000)
+                    buy: Number(usd['@attributes']['Buy']),
+                    transfer: Number(usd['@attributes']['Transfer']),
+                    sell: Number(usd['@attributes']['Sell'])
                 },
             }
         });

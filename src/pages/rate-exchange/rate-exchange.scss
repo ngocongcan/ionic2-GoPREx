@@ -1,50 +1,47 @@
 page-rate-exchange {
-    .horizontal {
-        display: flex;
-        justify-content: space-between;
-        text-align: center;
-        span {
-            width: 33vw;
-            padding-left:5px; 
-            padding-right:5px;
-        }
-        span:nth-child(1) {
-            text-align: left;
-        }
+  .horizontal {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+
+    span {
+      width: 33vw;
+      padding-left: 5px;
+      padding-right: 5px;
     }
-    .content-item {
-        background-color: $backgroundColor !important;
+
+    span:nth-child(1) {
+      text-align: left;
     }
-    .header {
-        @extend .g-bold;
-        background-color: $navBarColor;
-        color: $hoverColor;
-        height: 64px;
-        line-height: 64px;
-        span {
-            padding-top:20px;
-        }
-    }
-    .footer {
-        position: absolute;
-        display: flex;
-        justify-content: space-around;
-        background-color: #83b191;
-        color: #000;
-        height: 30px;
-        bottom: 0px;
-        left: 0px;
-        right: 0px;
-        line-height: 30px;
-    }
-    .content {
-        padding-bottom: 30px;
-    }
-    .g-wrapper-general {
-        position: relative;
-    }
+  }
+
+  .content-item {
+    background-color: $backgroundColor !important;
+  }
+
+  .footer {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    background-color: #83b191;
+    color: #000;
+    height: 30px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    line-height: 30px;
+  }
+
+  .content {
+    padding-bottom: 30px;
+  }
+
+  .g-wrapper-general {
+    position: relative;
+  }
 }
 
-.item-md ion-avatar ion-img, .item-md ion-avatar img {
-    border-radius: 0%;
+.item-md ion-avatar img,
+.item-md ion-avatar ion-img {
+  border-radius: 0;
 }

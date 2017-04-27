@@ -1,12 +1,12 @@
 {
   "name": "GoPREx",
-  "app_id": "",
+  "app_id": "8740c3db",
   "v2": true,
   "typescript": true,
   "proxies": [
-        {
-          "path": "/api",
-          "proxyUrl": "https://nlpapps.xyz/api/v1"
-        }
-      ]
+    {
+      "path": "/api",
+      "proxyUrl": "https://nlpapps.xyz/api/v1"
+    }
+  ]
 }

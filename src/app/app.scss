@@ -14,131 +14,165 @@
 // automatically applied to the <body> element in the app.
 //font
 .g-heading-1 {
-    font-weight: bold;
-    font-size: 23px;
+  font-weight: bold;
+  font-size: 23px;
 }
 
 .g-heading-2 {
-    font-weight: bold;
-    font-size: 17px;
+  font-weight: bold;
+  font-size: 17px;
 }
 
 .g-heading-3 {
-    font-weight: bold;
-    font-size: 15px;
+  font-weight: bold;
+  font-size: 15px;
 }
 
 .g-text {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .g-caption {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 .g-small {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .g-very-small {
-    font-size: 10px;
+  font-size: 10px;
 }
 
 .g-bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 //wrappers
 .g-wrapper-general {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    text-align: center;
-    min-height: 100%;
-    background-color: $backgroundColor;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-align: center;
+  min-height: 100%;
+  background-color: $backgroundColor;
+}
+
+.header {
+  @extend .g-bold;
+  background-color: $navBarColor;
+  color: $hoverColor;
+  height: 64px;
+  line-height: 64px;
+
+  span {
+    padding-top: 20px;
+  }
+}
+
+.item-md.item-block .item-inner {
+  border-bottom: 0 !important;
 }
 
 ion-tabs {
-    div.tabbar {
-        border-top-color: rgba(0, 0, 0, .1) !important;
-    }
-    a {
-        font-weight: bold;
-        text-transform: uppercase;
-    }
+  div.tabbar {
+    border-top-color: rgba(0, 0, 0, .1) !important;
+  }
+
+  a {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 }
 
-.nav-bar-block, .bar {
+.bar,
+.nav-bar-block {
+  background-color: $navBarColor !important;
+}
+@mixin icon-standard {
+  margin-top: 0 !important;
+  width: 25px !important;
+  min-width: 25px !important;
+  height: 25px !important;
+
+}
+
+.tabs-ios .tabbar {
   background-color: $navBarColor !important;
 }
 
-@mixin icon-standard {
-    margin-top: 0px !important;
-    width: 25px !important;
-    min-width: 25px !important;
-    height: 25px !important;
-    
+.tabs-md .tabbar {
+  background-color: $navBarColor !important;
 }
-.tabs-ios .tabbar {
-    background-color: $navBarColor !important;
-}
+
 .tabbar .show-tabbar {
-    background-color: $navBarColor !important;
+  background-color: $navBarColor !important;
 }
 
 .ion-ios-cash,
 .tabs-md .tab-button[aria-selected=true] .tab-button-icon.ion-md-cash {
-    content: url('../assets/icons/svg_ic_tygia_hover.svg');
-    @include icon-standard;
+  content: url('../assets/icons/svg_ic_tygia_hover.svg');
+  @include icon-standard;
 }
 
 .ion-ios-cash-outline,
 .ion-md-cash {
-    content: url('../assets/icons/svg_ic_tygia.svg');
-    @include icon-standard;
+  content: url('../assets/icons/svg_ic_tygia.svg');
+  @include icon-standard;
 }
 
 .ion-ios-pulse,
 .tabs-md .tab-button[aria-selected=true] .tab-button-icon.ion-md-pulse {
-    content: url('../assets/icons/svg_ic_giavang_hover.svg');
-    @include icon-standard;
+  content: url('../assets/icons/svg_ic_giavang_hover.svg');
+  @include icon-standard;
 }
 
 .ion-ios-pulse-outline,
 .ion-md-pulse {
-    content: url('../assets/icons/svg_ic_giavang.svg');
-    @include icon-standard;
+  content: url('../assets/icons/svg_ic_giavang.svg');
+  @include icon-standard;
 }
-
 
 .ion-ios-more,
 .tabs-md .tab-button[aria-selected=true] .tab-button-icon.ion-md-more {
-    content: url('../assets/icons/svg_ic_them_hover.svg');
-    @include icon-standard;
+  content: url('../assets/icons/svg_ic_them_hover.svg');
+  @include icon-standard;
 }
 
 .ion-ios-more-outline,
 .ion-md-more {
-    content: url('../assets/icons/svg_ic_them.svg');
-    @include icon-standard;
+  content: url('../assets/icons/svg_ic_them.svg');
+  @include icon-standard;
 }
-
 
 .ion-ios-stats,
 .tabs-md .tab-button[aria-selected=true] .tab-button-icon.ion-md-stats {
-    content: url('../assets/icons/svg_ic_bieudo_hover.svg');
-    @include icon-standard;
+  content: url('../assets/icons/svg_ic_bieudo_hover.svg');
+  @include icon-standard;
 }
 
 .ion-ios-stats-outline,
 .ion-md-stats {
-    content: url('../assets/icons/svg_ic_bieudo.svg');
-    @include icon-standard;
+  content: url('../assets/icons/svg_ic_bieudo.svg');
+  @include icon-standard;
 }
 
-.tabs-ios .tab-button:hover:not(.disable-hover), .tabs-ios .tab-button[aria-selected=true] {
-    color: $hoverColor !important;
+.tabs-ios .tab-button:hover:not(.disable-hover),
+.tabs-ios .tab-button[aria-selected=true] {
+  color: $hoverColor !important;
 }
-.tabs-ios .tab-button:hover:not(.disable-hover), .tabs-ios .tab-button[aria-selected=false] {
-    color: #fff !important;
+
+.tabs-ios .tab-button:hover:not(.disable-hover),
+.tabs-ios .tab-button[aria-selected=false] {
+  color: #fff !important;
+}
+
+.tabs-md .tab-button:hover:not(.disable-hover),
+.tabs-md .tab-button[aria-selected=true] {
+  color: $hoverColor !important;
+}
+
+.tabs-md .tab-button:hover:not(.disable-hover),
+.tabs-md .tab-button[aria-selected=false] {
+  color: #fff !important;
 }

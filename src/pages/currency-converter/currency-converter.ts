@@ -11,12 +11,12 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'page-currency-converter',
   templateUrl: 'currency-converter.html',
 })
+
 export class CurrencyConverterPage {
 
-  data : any
-  selectedItem : any;
-  source : number ;
-  desc: number ;
+  data: any
+  selectedItem: any;
+  source: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     console.log('CurrencyConverterPage : ', navParams);
@@ -29,16 +29,13 @@ export class CurrencyConverterPage {
     console.log('ionViewDidLoad CurrencyConverter');
   }
 
-  change(){
-    this.desc = 1122;
+  getDesc(): number {
+    let value = Number(this.source * Number(this.selectedItem['@attributes'].Transfer));
+    let newValue = Number(value.toFixed(2));
+    return newValue;
   }
 
-  getDesc():number {
-
-    return this.desc;
-  }
-
-  onClickBack(){
+  onClickBack() {
     this.navCtrl.pop();
   }
 

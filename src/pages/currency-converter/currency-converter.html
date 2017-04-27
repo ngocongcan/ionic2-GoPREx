@@ -5,12 +5,11 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-      
   <ion-item class="header">
-    <ion-icon name="arrow-back" item-left (click)="onClickBack()">
+    <ion-icon class="logo" name="arrow-back" item-left (click)="onClickBack()">
     </ion-icon>
     <div class="horizontal g-text">
-      <p>Chuyển đổi tiền tệ</p>
+      <span>Chuyển đổi tiền tệ</span>
     </div>
   </ion-item>
 </ion-header>
@@ -20,16 +19,16 @@
     <div class="pannel" *ngIf="data && selectedItem">
       <div class="input-area">
         <div class="currency-name g-heading-3"> {{selectedItem['@attributes'].CurrencyName}}</div>
-        <div class="item-horizontal"> 
-          <input type="number" [(ngModel)]="source" (ng-change)="change()">
+        <div class="item-horizontal g-heading-3">
+          <input type="number" [(ngModel)]="source">
           <img src="assets/flags-icon/{{selectedItem['@attributes'].CurrencyCode|lowercase}}.png">
         </div>
       </div>
       <div class="input-area">
         <div class="currency-name g-heading-3"> VIETNAM DONG </div>
-        <div class="item-horizontal"> 
-          <input type="number" [(ngModel)]="desc">
-          <img src="assets/flags-icon/VND.png">
+        <div class="item-horizontal g-heading-3">
+          <input type="number" [ngModel]="getDesc()">
+          <img src="assets/flags-icon/vnd.png">
         </div>
       </div>
     </div>

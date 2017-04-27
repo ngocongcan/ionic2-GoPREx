@@ -50,7 +50,7 @@ export class RestAPIService extends HttpService {
     return this.getData(`crawler/gold-price`)
       .map(this.handleGoldPriceResponse.bind(this))
       .flatMap(this.saveGoldData.bind(this))
-      .map((res)=>{
+      .map((res) => {
         return this.goldPriceData;
       })
       .catch((err) => {
@@ -70,7 +70,7 @@ export class RestAPIService extends HttpService {
     return this.getData(`crawler/exchange-rate`)
       .map(this.handleRateExchangeResponse.bind(this))
       .flatMap(this.saveRateData.bind(this))
-      .map((res)=>{
+      .map((res) => {
         return this.rateExchangeData;
       })
       .catch((err) => {
@@ -171,8 +171,8 @@ export class RestAPIService extends HttpService {
 
     let dateString = new Date(data.DateTime);
     let dateFormat = "MM/DD/YYYY hh:mm:ss A"
-    // let unixTime = moment.utc(dateString, dateFormat).unix();
-    let unixTime = moment().unix();
+    let unixTime = moment.utc(dateString, dateFormat).unix();
+    // let unixTime = moment().unix();
     console.log("saveRateData time : ", unixTime);
     if (unixTime && dateString) {
       data['_id'] = `${unixTime}`;
@@ -189,8 +189,8 @@ export class RestAPIService extends HttpService {
 
     let dateString = data.ratelist['@attributes'].updated;
     let dateFormat = "hh:mm:ss A DD/MM/YYYY"
-    // let unixTime = moment.utc(dateString, dateFormat).unix();
-    let unixTime = moment().unix();
+    let unixTime = moment.utc(dateString, dateFormat).unix();
+    // let unixTime = moment().unix();
     console.log("saveGoldData time : ", unixTime);
     if (unixTime && dateString) {
       data['_id'] = `${unixTime}`;

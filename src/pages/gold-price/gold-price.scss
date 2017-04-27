@@ -1,35 +1,28 @@
 page-gold-price {
-    .horizontal {
-        display: flex;
-        justify-content: space-between;
-        text-align: center;
-        span {
-            width: 33vw;
-        }
-        span:nth-child(1) {
-            text-align: left;
-        }
-    }
-    .content-item {
-        background-color: $backgroundColor !important;
-    }
-     .header {
-        @extend .g-bold;
-        background-color: $navBarColor; 
-        color: $hoverColor;
-        height: 64px;
-        line-height: 64px;
-        span {
-            padding-top:20px;
-        }
-    }
-    .footer {
-        display: flex;
-        justify-content: space-around;
-        background-color: #83b191;
-        color: #000;
-        height: 30px;
-        line-height: 30px;
-    }
-}
+  .horizontal {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
 
+    span {
+      width: 33vw;
+    }
+
+    span:nth-child(1) {
+      text-align: left;
+    }
+  }
+
+  .content-item {
+    background-color: $backgroundColor !important;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-around;
+    background-color: #83b191;
+    color: #000;
+    height: 30px;
+    line-height: 30px;
+  }
+}
