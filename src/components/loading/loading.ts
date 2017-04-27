@@ -19,19 +19,21 @@ export class LoadingComponent {
         console.log("showLoading");
         this.loading = this.loadingCtr.create({
             content: message,
-            dismissOnPageChange: true
+            dismissOnPageChange: true,
+            duration: 5000,
         });
-        this.loading.present();
+        this.loading.present().catch(err => console.error(JSON.stringify(err)));
+        
     }
 
     public hideLoading() {
         console.log("hideLoading");
-        if (this.loading) {
-            this.loading.dismiss()
-                .catch((err) => {
-                    console.error(err);
-            });
-        }
+        // if (this.loading != null) {
+        //     this.loading.dismiss()
+        //         .catch((err) => {
+        //             console.error(err);
+        //     });
+        // }
     }
 
 }

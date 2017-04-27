@@ -1,7 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { MomentModule } from 'angular2-moment';
 import { IonicStorageModule } from '@ionic/storage';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
@@ -12,8 +11,7 @@ import { Network } from '@ionic-native/network';
 
 // Classes
 import { AppConfig } from './app.config';
-// Configs
-import { FirebaseConfig } from './firebase.config';
+// Config
 // Pages
 import { AboutPage } from '../pages/about/about';
 import { ChartsPage } from '../pages/charts/charts';
@@ -84,10 +82,6 @@ const Providers = [
     BrowserModule,
     IonicModule.forRoot(GoPRExApp),
     IonicStorageModule.forRoot({ name: '__goPRexDB', }),
-    AngularFireModule.initializeApp(FirebaseConfig, {
-      provider: AuthProviders.Custom,
-      method: AuthMethods.CustomToken
-    }),
     NgIdleKeepaliveModule.forRoot(),
     MomentModule,
     HttpModule
