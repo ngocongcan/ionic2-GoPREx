@@ -38,22 +38,27 @@ export class GoldPricePage {
   }
 
   private getData(refresher?) {
+    var loading ;
     if (!refresher || !this.goldPriceData) {
-      this.loading.showLoading("Loading...");
+      loading = this.loading.showLoading("Loading...");
     }
-    this.restService.getGoldPriceData().subscribe((res) => {
+    this.restService.getGoldPriceData(refresher).subscribe((res) => {
       // console.log('GoldPricePage - getGoldPriceData res :', res);
       this.goldPriceData = res;
       if (refresher) {
         refresher.complete();
       }
-      this.loading.hideLoading();
+      if(loading) {
+        loading.dismissAll();
+      }
       this.getGoldData();
     }, (err) => {
       if (refresher) {
         refresher.complete();
       }
-      this.loading.hideLoading();
+      if(loading) {
+        loading.dismissAll();
+      }
     });
   }
 

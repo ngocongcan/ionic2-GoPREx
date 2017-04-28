@@ -28,10 +28,10 @@ export class RateExchangePage {
     console.log('ionViewDidLoad RateExchange');
   }
 
-  private getRateData(){
+  private getRateData() {
     this.restService.getAllRate().subscribe((res) => {
       // console.log("RateExchangePage getRateData res :", JSON.stringify(res));
-      if(res && res.length) {
+      if (res && res.length) {
         this.rateExchangeData = res[0];
       }
     }, (err) => {
@@ -41,22 +41,27 @@ export class RateExchangePage {
 
 
   private getData(refresher?) {
+    var loading;
     if (!refresher || !this.rateExchangeData) {
-      this.loading.showLoading("Loading...");
+      loading = this.loading.showLoading("Loading...");
     }
-    this.restService.getRateExchangeData().subscribe((res) => {
+    this.restService.getRateExchangeData(refresher).subscribe((res) => {
       // console.log('RateExchangePage - getRateExchangeData res :', JSON.stringify(res));
       if (refresher) {
         refresher.complete();
       }
-      this.loading.hideLoading();
+      if (loading) {
+        loading.dismissAll();
+      }
       this.rateExchangeData = res;
     }, (err) => {
       console.log("RateExchangePage getData error :", JSON.stringify(err));
       if (refresher) {
         refresher.complete();
       }
-      this.loading.hideLoading();
+      if (loading) {
+        loading.dismissAll();
+      }
     });
   }
 
@@ -67,7 +72,7 @@ export class RateExchangePage {
   onClickItem(item) {
     this.navCtrl.push(CurrencyConverterPage, {
       selectedItem: item,
-      data : this.rateExchangeData
+      data: this.rateExchangeData
     })
   }
 

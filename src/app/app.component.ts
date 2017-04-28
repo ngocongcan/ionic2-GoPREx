@@ -47,15 +47,14 @@ export class GoPRExApp {
   }
   private auth(inBackground?: boolean) {
     if (!inBackground) {
-      this.loading.showLoading("Authenticate...");
+      var loading = this.loading.showLoading("Authenticate...");
       this.restService.auth().subscribe((res) => {
         console.log("res :", res);
-        this.loading.hideLoading();
+        loading.dismissAll();
         this.navCtrl.setRoot(TabsPage);
-
       }, err => {
         console.error(err);
-        this.loading.hideLoading();
+        loading.dismissAll();
         this.navCtrl.setRoot(TabsPage);
       })
     } else {

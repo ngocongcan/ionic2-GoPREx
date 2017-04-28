@@ -39,9 +39,9 @@ export class RestAPIService extends HttpService {
     this._redb = new PouchDB('_raex.db', { adapter: 'cordova-sqlite' });
   }
 
-  getGoldPriceData(): Observable<any> {
+  getGoldPriceData(refresh?: boolean): Observable<any> {
     console.log('getGoldPriceData');
-    if (this.goldPriceData) {
+    if (this.goldPriceData && !refresh) {
       return Observable.create((observer) => {
         observer.next(this.goldPriceData);
         observer.complete();
@@ -59,9 +59,9 @@ export class RestAPIService extends HttpService {
       });
   }
 
-  getRateExchangeData(): Observable<any> {
+  getRateExchangeData(refresh?: boolean): Observable<any> {
     console.log('getRateExchangeData');
-    if (this.rateExchangeData) {
+    if (this.rateExchangeData && !refresh) {
       return Observable.create((observer) => {
         observer.next(this.rateExchangeData);
         observer.complete();
