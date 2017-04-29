@@ -8,6 +8,8 @@ import { GoPRExApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { SQLite } from '@ionic-native/sqlite';
 import { Network } from '@ionic-native/network';
+import { LaunchReview } from '@ionic-native/launch-review';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 // Classes
 import { AppConfig } from './app.config';
@@ -34,7 +36,8 @@ import { ConnectivityService } from '../providers/connectivity-service';
 // Pipes
 import { PricePipe } from '../pipes/price';
 
-
+// Third party Module
+import { Ionic2RatingModule } from 'ionic2-rating';
 
 //---
 import { StatusBar } from '@ionic-native/status-bar';
@@ -70,6 +73,10 @@ const Providers = [
   ConnectivityService
 ]
 
+const Modules = [
+  Ionic2RatingModule
+]
+
 @NgModule({
   declarations: [
     GoPRExApp,
@@ -84,7 +91,8 @@ const Providers = [
     IonicStorageModule.forRoot({ name: '__goPRexDB', }),
     NgIdleKeepaliveModule.forRoot(),
     MomentModule,
-    HttpModule
+    HttpModule,
+    ...Modules
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -96,6 +104,8 @@ const Providers = [
     SplashScreen,
     SQLite,
     Network,
+    LaunchReview,
+    EmailComposer,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ...Providers, ...Classes, ...SharedComponents
   ]

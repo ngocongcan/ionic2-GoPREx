@@ -1,29 +1,44 @@
 page-about {
+  .logo {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+  }
 
-    .logo {
-        width: 40px;
-        height: 40px;
-        position: absolute;
-        top: 12px;
-        left: 12px;
-    }
+  .horizontal {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
 
-    .horizontal {
-        display: flex;
-        justify-content: space-between;
-        text-align: center;
-        span {
-            width: 100vw;
-        }
-        margin: 0px !important;
-        padding: 0px !important;
+    span {
+      width: 100vw;
     }
-    .large-logo {
-        width: 60vw;
-        height: 60vw;
-        margin: 20vw;
-        border: 1px solid;
-        border-radius: 30px;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .large-logo {
+    width: 60vw;
+    height: 60vw;
+    margin: 20vw;
+    border: 1px solid;
+    border-radius: 30px;
+  }
+
+  ul {
+    padding: 0;
+
+    &.rating li {
+      padding: 5px 10px !important;
+      background: none;
+      color: #ffb400;
+
+      ion-icon {
+        font-size: 30px;
+      }
     }
+  }
 
 }

@@ -59,12 +59,10 @@
 }
 
 .header {
-  @extend .g-bold;
   background-color: $navBarColor;
   color: $hoverColor;
   height: 64px;
   line-height: 64px;
-
   span {
     padding-top: 20px;
   }
